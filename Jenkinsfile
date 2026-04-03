@@ -8,6 +8,7 @@ pipeline{
     }
 
     stages{
+
         stage('Reading the package version') {
             steps{
                 script {
@@ -17,5 +18,15 @@ pipeline{
                 }
             }
         }
+        stage('Install Dependices'){
+            steps{
+                script{
+                    sh """
+                    npm install
+                    """
+                }
+            }
+        }
     }
+
 }
