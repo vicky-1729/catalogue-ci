@@ -8,7 +8,7 @@ pipeline{
     }
 
     stages{
-        stage('Testing') {
+        stage('Reading the package version') {
             steps{
                 script {
                     def packageJson = readJSON file: 'package.json'
@@ -17,5 +17,6 @@ pipeline{
                 }
             }
         }
+        stage('')
     }
 }
