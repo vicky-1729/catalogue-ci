@@ -27,6 +27,23 @@ pipeline{
                 }
             }
         }
+        stage('input user'){
+            input{
+                message "Are you ready to connect AWS..?"
+                ok "please proceed"
+                submitter "vs"
+
+            }
+            steps{
+                script{
+                   sh """
+                        aws s3 ls
+
+                    """ 
+                }
+            }
+
+        }
     }
 
 }
