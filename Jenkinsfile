@@ -6,7 +6,6 @@ pipeline{
     environment{
         appVersion = ''
     }
-
     stages{
 
         stage('Reading the package version') {
