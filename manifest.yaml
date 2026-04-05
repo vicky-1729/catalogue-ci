@@ -1,0 +1,96 @@
+#ConfigMap
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    name: catalogue
+    env: test
+    project: roboshop
+    tier: app
+data:
+  db_url: mongodb.daws84s.site
+
+# Secerets
+apiVersion: v1
+kind: Secerets
+metadata:
+  label:
+  name: mongodb
+  env: test
+type: Opque
+data:
+  username: "Roboshop"
+  password: "Roboshop@#$123"
+
+
+# Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: VS
+  name: catalogue
+  label:
+    env: test
+    project: roboshop
+    tier: app
+spec:
+  replicas: 3
+  slectors:
+    matchLables:
+      env: test
+      project: roboshop
+  template:
+    lables:
+      env: test
+      project: roboshop
+    spec:
+      containers:
+        - name: catalogue
+          image: joindevops/catalogue:v1
+          resources:
+            request:
+              cpu:
+              mem:
+            limits:
+              cpu:
+              mem: 
+          envFrom:
+            ConfigMapRef:
+              - name: catalogue
+#Service
+apiVersion: v1
+kind: Service
+metadata:
+  lables:
+    env: test
+    project: roboshop
+spec:
+  type: clusterIP
+  selectors:
+    labels:
+      env: test
+      project: roboshop
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+
+# Headless service
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    env: test
+    project: roboshop
+spec:
+  clusterIP: none
+  selectors:
+    labels:
+      env: test
+      project: roboshop
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+
+  
